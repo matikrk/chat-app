@@ -1,6 +1,6 @@
 {
   "name": "chat-app",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "example of chat app baset on websockets - socket.io",
   "main": "index.js",
   "scripts": {
