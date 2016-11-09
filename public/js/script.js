@@ -1,10 +1,10 @@
 /* The external ip is determined by app.js and passed into the template. */
-var webSocketHost = location.protocol === 'https:' ? 'wss://' : 'ws://';
-//var externalIp = $('body').data('external-ip');
-var externalIp = window.wsLocation;
-var webSocketUri = webSocketHost + externalIp + ':65080/chat';
+const webSocketHost = location.protocol === 'https:' ? 'wss://' : 'ws://';
+//const externalIp = $('body').data('external-ip');
+const externalIp = window.wsLocation;
+const webSocketUri = webSocketHost + externalIp + ':65080/chat';
 
-var websocket = new WebSocket(webSocketUri);
+const websocket = new WebSocket(webSocketUri);
 
 websocket.onopen = function() {
     console.log('Connected');
@@ -24,7 +24,7 @@ websocket.onerror = function(e) {
 };
 
 $('form').submit(function() {
-    var text = $('#m').val();
+    const text = $('#m').val();
     websocket.send('test')
     $('#m').val('');
     return false;
