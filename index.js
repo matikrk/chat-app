@@ -19,9 +19,9 @@ app.get('/wsLocation.js', function(req, res) {
 
 var connectedWs = {};
 var broadcastMsg = function(msg) {
-        Object.values(connectedWs).forEach(ws => ws.send(msg));
-    }
-    // A simple echo service.
+    Object.values(connectedWs).forEach(ws => ws.send(msg));
+};
+
 app.ws('/chat', function(ws) {
     var user = (+new Date() + ~~(Math.random() * 1000)).toString(36);
 
