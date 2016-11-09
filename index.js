@@ -1,12 +1,15 @@
-var app = require('express')();
+var express = require('express')
+var app = express();
 var http = require('http').Server(app);
+
+var path = require('path');
 
 var io = require('socket.io')(http);
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/static/index.html');
 });
-
 io.on('connection', function(socket) {
     var user = 'user' + ~~(Math.random() * 100);
 
@@ -21,7 +24,7 @@ io.on('connection', function(socket) {
     });
 });
 
-var port = 8080;
+var port = process.env.PORT || 8080;
 http.listen(port, function() {
     console.log(`listening on *:${port}`);
 });
