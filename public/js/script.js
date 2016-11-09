@@ -1,6 +1,3 @@
-
-
-
 /* The external ip is determined by app.js and passed into the template. */
 var webSocketHost = location.protocol === 'https:' ? 'wss://' : 'ws://';
 //var externalIp = $('body').data('external-ip');
@@ -20,13 +17,11 @@ websocket.onclose = function() {
 websocket.onmessage = function(e) {
     console.log('Message received');
     $('#messages').append($('<li>').text(e.data));
-
 };
 
 websocket.onerror = function(e) {
-    console.log('Error', e.data , e);
+    console.log('Error', e.data, e);
 };
-
 
 $('form').submit(function() {
     var text = $('#m').val();

@@ -41,12 +41,12 @@ app.ws('/chat', function(ws) {
 });
 
 // Start the websocket server
-var wsServer = app.listen('65080', function() {
+var wsPort = 65080;
+var wsServer = app.listen(wsPort, function() {
     console.log('Websocket server listening on port %s', wsServer.address().port);
 });
 
-
-var port = process.env.PORT || 8080;
-http.listen(port, function() {
-    console.log(`listening on *:${port}`);
+var httpPort = process.env.PORT || 8080;
+http.listen(httpPort, function() {
+    console.log(`listening on *:${httpPort}`);
 });
