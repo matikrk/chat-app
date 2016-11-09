@@ -25,7 +25,7 @@ websocket.onerror = function(e) {
 
 $('form').submit(function() {
     const text = $('#m').val();
-    websocket.send('test')
+    websocket.send(text)
     $('#m').val('');
     return false;
 });

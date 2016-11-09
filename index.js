@@ -26,16 +26,17 @@ app.ws('/chat', function(ws) {
     const user = (+new Date() + ~~(Math.random() * 1000)).toString(36);
 
     connectedWs[user] = ws;
-    ws.send(user + 'open');
+    broadcastMsg(user + ' connected to chat');
     console.log(`user ${user} connected, ${Object.keys(connectedWs).length} users connected`);
 
     ws.on('message', function(msg) {
-        broadcastMsg(msg);
-        //  ws.send(user + 'response: ' + msg);
+        broadcastMsg(user + ' response: ' + msg);
     });
     ws.on('close', function() {
         console.log(`user ${user} close connection, ${Object.keys(connectedWs).length} users connected`);
-        delete connectedWs[user]
+        delete connectedWs[user];
+        broadcastMsg(user + ' left chat');
+
     });
 
 });
