@@ -7,9 +7,9 @@ var path = require('path');
 var io = require('socket.io')(http);
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/static/index.html');
-});
+//app.get('/', function(req, res) {
+//    res.sendFile(__dirname + '/static/index.html');
+//});
 io.on('connection', function(socket) {
     var user = 'user' + ~~(Math.random() * 100);
 
