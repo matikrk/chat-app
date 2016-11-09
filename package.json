@@ -1,25 +1,26 @@
 {
-    "name": "chat-app",
-    "version": "0.0.2",
-    "description": "example of chat app baset on websockets",
-    "main": "index.js",
-    "scripts": {
-        "postinstall": "bower install --config.interactive=false",
-        "start": "node index.js",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "deploy": "gcloud app deploy --version head"
-    },
-    "engines": {
-        "node": "~7.0"
-    },
-    "keywords": [
-        "chat"
-    ],
-    "author": "matikrk",
-    "license": "ISC",
-    "dependencies": {
-        "bower": "^1.8.0",
-        "express": "^4.14.0",
-        "express-ws": "^2.0.0"
-    }
+  "name": "chat-app",
+  "version": "0.0.2",
+  "description": "example of chat app baset on websockets",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "bower install --config.interactive=false",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gcloud app deploy --version head"
+  },
+  "engines": {
+    "node": "~7.0"
+  },
+  "keywords": [
+    "chat"
+  ],
+  "author": "matikrk",
+  "license": "ISC",
+  "dependencies": {
+    "bower": "^1.8.0",
+    "express": "^4.14.0",
+    "express-ws": "^2.0.0",
+    "request": "^2.78.0"
+  }
 }
