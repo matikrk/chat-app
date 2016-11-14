@@ -1,31 +1,27 @@
 const express = require('express')
 const app = express();
 const http = require('http').Server(app);
-var request = require('request');
+const request = require('request');
 
 // Use express-ws to enable web sockets.
 require('express-ws')(app);
 
 app.use(express.static('public'));
 
-
-
 //app.get('/', function(req, res) {
 //    res.sendFile(__dirname + '/static/index.html');
 //});
-
-
 
 
 // [START external_ip]
 // In order to use websockets on App Engine, you need to connect directly to
 // application instance using the instance's public external IP. This IP can
 // be obtained from the metadata server.
-var METADATA_NETWORK_INTERFACE_URL = 'http://metadata/computeMetadata/v1/' +
+const METADATA_NETWORK_INTERFACE_URL = 'http://metadata/computeMetadata/v1/' +
     '/instance/network-interfaces/0/access-configs/0/external-ip';
 
 function getExternalIp(cb) {
-    var options = {
+    const options = {
         url: METADATA_NETWORK_INTERFACE_URL,
         headers: {
             'Metadata-Flavor': 'Google'
