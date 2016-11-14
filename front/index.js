@@ -14,7 +14,7 @@ app.use(express.static('public'));
 //});
 
 app.get('/wsLocation.js', function(req, res) {
-    const wsLocation = config.wsLocation;
+    const wsLocation = config.wsLocations;
     const script = `window.wsLocation = \'${wsLocation}\';`;
     res.set('Content-Type', 'text/javascript');
     res.send(script)
