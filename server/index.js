@@ -1,24 +1,8 @@
-const express = require('express')
+const express = require('express');
 const app = express();
-const http = require('http').Server(app);
-const request = require('request');
-const config = require('./appConfig.json');
 
 // Use express-ws to enable web sockets.
 require('express-ws')(app);
-
-app.use(express.static('public'));
-
-//app.get('/', function(req, res) {
-//    res.sendFile(__dirname + '/static/index.html');
-//});
-
-app.get('/wsLocation.js', function(req, res) {
-    const wsLocation = config.wsLocations;
-    const script = `window.wsLocation = \'${wsLocation}\';`;
-    res.set('Content-Type', 'text/javascript');
-    res.send(script)
-});
 
 const connectedWs = {};
 const broadcastMsg = function(msg) {
@@ -48,9 +32,4 @@ app.ws('/chat', function(ws) {
 const wsPort = 65080;
 const wsServer = app.listen(wsPort, function() {
     console.log('Websocket server listening on port %s', wsServer.address().port);
-});
-
-const httpPort = process.env.PORT || 8080;
-http.listen(httpPort, function() {
-    console.log(`listening on *:${httpPort}`);
 });
