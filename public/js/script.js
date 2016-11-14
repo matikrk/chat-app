@@ -1,7 +1,7 @@
 /* The external ip is determined by app.js and passed into the template. */
 const webSocketHost = location.protocol === 'https:' ? 'wss://' : 'ws://';
 //const externalIp = $('body').data('external-ip');
-const externalIp ='104.199.69.67';// window.wsLocation;
+const externalIp = window.wsLocation;
 const webSocketUri = webSocketHost + externalIp + ':65080/chat';
 
 const websocket = new WebSocket(webSocketUri);
