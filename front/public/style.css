@@ -43,3 +43,15 @@ form button {
 #messages li:nth-child(odd) {
     background: #eee;
 }
+
+
+#messages li .user{
+    width:120px;
+    display: inline-block;
+    margin-right: 5px;
+}
+#messages li .msg{
+    width:120px;
+    display: inline-block;
+    margin-right: 5px;
+}

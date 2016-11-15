@@ -9,17 +9,58 @@ const broadcastMsg = function (msg) {
     Object.values(connectedUsers).forEach(({ws}) => ws.send(msg));
 };
 
+const eventType = {
+    MESSAGE: 'MESSAGE',
+    TYPING: 'TYPING',
+};
+
 app.ws('/chat', function (ws) {
     const user = (+new Date()).toString(36) + (~~(Math.random() * 1000)).toString(36);
 
     connectedUsers[user] = {ws, name: user};
-    broadcastMsg(user + ' connected to chat');
+
+    broadcastMsg(JSON.stringify({
+        event: eventType.MESSAGE,
+        text: `User ${user} enter to chat`,
+        user: 'Sustem'
+    }));
+
     console.log(`user ${user} connected, ${Object.keys(connectedUsers).length} users connected`);
 
     ws.on('message', function (msg) {
-        broadcastMsg(user + ' response: ' + msg);
+
+        let data;
+        try {
+            data = JSON.parse(msg);
+        } catch (e) {
+            console.error('Can\'t parse message: ' + msg)
+            return;
+        }
+
+        switch (data.event) {
+            case eventType.MESSAGE: {
+                handleNewMessage(data,user);
+                break;
+            }
+            case        eventType.TYPING: {
+                handleUserTyping(data);
+                break;
+            }
+            default: {
+                console.warn('Not known event type');
+            }
+        }
+
     });
 
+    const handleNewMessage=function(data,user){
+        broadcastMsg(JSON.stringify({
+            event: eventType.MESSAGE,
+            text: data.text,
+            user: user
+        }));
+    };
+    const handleUserTyping=function(){};
     ws.on('close', function () {
         console.log(`user ${user} close connection, ${Object.keys(connectedUsers).length} users connected`);
         delete connectedUsers[user];
