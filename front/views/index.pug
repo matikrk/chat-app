@@ -3,12 +3,11 @@ html
     head
         title Chat application
         link(rel='stylesheet', type='text/css', href='style.css')
-    body
+    body(data-ws-ip=wsLocation)
         ul#messages
-        form(action='')
-            input#m(autocomplete='off')
+        form(action='')#submitForm
+            input#textInput(autocomplete='off')
             button Send
-        script(src='bower_components/jquery/dist/jquery.min.js')
         script.
             window.wsLocation='#{wsLocation}';
         script(src='js/script.js')

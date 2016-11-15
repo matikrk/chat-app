@@ -1,31 +1,38 @@
 /* The external ip is determined by app.js and passed into the template. */
 const webSocketHost = location.protocol === 'https:' ? 'wss://' : 'ws://';
-//const externalIp = $('body').data('external-ip');
 const externalIp = window.wsLocation;
 const webSocketUri = webSocketHost + externalIp + ':65080/chat';
 
 const websocket = new WebSocket(webSocketUri);
 
-websocket.onopen = function() {
+websocket.onopen = function () {
     console.log('Connected');
+
 };
 
-websocket.onclose = function() {
+websocket.onclose = function () {
     console.log('Closed');
 };
 
-websocket.onmessage = function(e) {
+websocket.onmessage = function (e) {
     console.log('Message received');
-    $('#messages').append($('<li>').text(e.data));
+    const messages = document.getElementById('messages');
+    const li = document.createElement('li');
+    li.textContent = e.data;
+    messages.appendChild(li);
 };
 
-websocket.onerror = function(e) {
+websocket.onerror = function (e) {
     console.log('Error', e.data, e);
 };
 
-$('form').submit(function() {
-    const text = $('#m').val();
-    websocket.send(text)
-    $('#m').val('');
-    return false;
-});
+
+const submitForm = document.getElementById('submitForm');
+const onSubmit = function (e) {
+    e.preventDefault();
+    const input = document.getElementById('textInput');
+    const text = input.value;
+    websocket.send(text);
+    input.value = '';
+};
+submitForm.addEventListener('submit', onSubmit);
