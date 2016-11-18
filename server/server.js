@@ -22,7 +22,7 @@ app.ws('/chat', function (ws) {
     broadcastMsg(JSON.stringify({
         event: eventType.MESSAGE,
         text: `User ${user} enter to chat`,
-        user: 'Sustem'
+        user: 'System'
     }));
 
     console.log(`user ${user} connected, ${Object.keys(connectedUsers).length} users connected`);
@@ -53,6 +53,17 @@ app.ws('/chat', function (ws) {
 
     });
 
+
+    ws.on('close', function () {
+        console.log(`user ${user} close connection, ${Object.keys(connectedUsers).length} users connected`);
+        delete connectedUsers[user];
+        broadcastMsg(JSON.stringify({
+            event: eventType.MESSAGE,
+            text: `User ${user} quit from chat`,
+            user: 'System'
+        }));
+    });
+
     const handleNewMessage=function(data,user){
         broadcastMsg(JSON.stringify({
             event: eventType.MESSAGE,
@@ -61,12 +72,6 @@ app.ws('/chat', function (ws) {
         }));
     };
     const handleUserTyping=function(){};
-    ws.on('close', function () {
-        console.log(`user ${user} close connection, ${Object.keys(connectedUsers).length} users connected`);
-        delete connectedUsers[user];
-        broadcastMsg(user + ' left chat');
-    });
-
 });
 
 // Start the websocket server
